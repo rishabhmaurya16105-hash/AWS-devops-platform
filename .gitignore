@@ -7,3 +7,8 @@ __pycache__/
 
 # Pytest
 .pytest_cache/
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
