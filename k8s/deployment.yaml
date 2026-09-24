@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: aws-devops-platform
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: aws-devops-platform
+
+  template:
+    metadata:
+      labels:
+        app: aws-devops-platform
+
+    spec:
+      containers:
+        - name: aws-devops-platform
+          image: aws-devops-platform:1.0
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - containerPort: 5000
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
