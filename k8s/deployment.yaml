@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: aws-devops-platform
-          image: aws-devops-platform:1.0
+          image: aws-devops-platform:1.2
           imagePullPolicy: IfNotPresent
 
           ports:
@@ -45,3 +45,4 @@ spec:
             limits:
               cpu: "250m"
               memory: "256Mi"
+

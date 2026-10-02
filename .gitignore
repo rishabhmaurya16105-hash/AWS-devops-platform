@@ -12,3 +12,6 @@ __pycache__/
 *.tfstate
 *.tfstate.*
 *.tfplan
+# Generated artifacts
+*.tar
+trivy-report.json

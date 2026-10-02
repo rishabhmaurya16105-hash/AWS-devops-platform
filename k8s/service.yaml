@@ -3,13 +3,15 @@ kind: Service
 
 metadata:
   name: aws-devops-platform
-
+  labels:
+    app: aws-devops-platform
 spec:
   selector:
     app: aws-devops-platform
 
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80
       targetPort: 5000
 
