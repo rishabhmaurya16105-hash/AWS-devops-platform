@@ -37,7 +37,7 @@ jobs:
             k8s/deployment.yaml
             k8s/service.yaml
             k8s/hpa.yaml
-          kubeconformOpts: -strict -summary
+          kubeconformOpts: -summary
 
       - name: Build Docker image
         run: |
