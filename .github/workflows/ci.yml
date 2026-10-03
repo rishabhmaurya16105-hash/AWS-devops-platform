@@ -30,6 +30,14 @@ jobs:
         run: |
           pytest -q
 
+      - name: Validate Kubernetes manifests
+        run: |
+          for file in k8s/*.yaml; do
+            if [ "$(basename "$file")" != "servicemonitor.yaml" ]; then
+              kubectl apply --dry-run=client -f "$file"
+            fi
+          done
+
       - name: Build Docker image
         run: |
           docker build -t aws-devops-platform:${{ github.sha }} .
