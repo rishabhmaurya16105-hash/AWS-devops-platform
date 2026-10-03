@@ -31,12 +31,13 @@ jobs:
           pytest -q
 
       - name: Validate Kubernetes manifests
-        run: |
-          for file in k8s/*.yaml; do
-            if [ "$(basename "$file")" != "servicemonitor.yaml" ]; then
-              kubectl apply --dry-run=client --validate=false -f "$file"
-            fi
-          done
+        uses: azure/k8s-lint@v4
+        with:
+          manifests: |
+            k8s/deployment.yaml
+            k8s/service.yaml
+            k8s/hpa.yaml
+          kubeconformOpts: -strict -summary
 
       - name: Build Docker image
         run: |
