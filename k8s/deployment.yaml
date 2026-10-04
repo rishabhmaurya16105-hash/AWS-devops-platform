@@ -19,8 +19,21 @@ spec:
     spec:
       containers:
         - name: aws-devops-platform
-          image: aws-devops-platform:1.2
+          image: aws-devops-platform:1.3
           imagePullPolicy: IfNotPresent
+
+          env:
+            - name: APP_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: aws-devops-platform-config
+                  key: APP_ENV
+
+            - name: DEMO_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-devops-platform-secret
+                  key: DEMO_API_KEY
 
           ports:
             - containerPort: 5000
@@ -38,6 +51,7 @@ spec:
               port: 5000
             initialDelaySeconds: 5
             periodSeconds: 10
+
           resources:
             requests:
               cpu: "100m"
@@ -45,4 +59,3 @@ spec:
             limits:
               cpu: "250m"
               memory: "256Mi"
-

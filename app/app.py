@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, Response, request
 from prometheus_client import Counter, generate_latest, CONTENT_TYPE_LATEST
+import os
 
 app = Flask(__name__)
 
@@ -11,6 +12,7 @@ REQUEST_COUNT = Counter(
 
 APP_NAME = "aws-devops-platform"
 APP_VERSION = "1.0.0"
+APP_ENV = os.getenv("APP_ENV", "development")
 
 
 @app.route("/")
@@ -35,13 +37,15 @@ def info():
         {
             "application": APP_NAME,
             "version": APP_VERSION,
-            "environment": "development",
+            "environment": APP_ENV,
         }
     )
+
 
 @app.route("/error")
 def error():
     return jsonify({"status": "internal server error"}), 500
+
 
 @app.after_request
 def record_request(response):

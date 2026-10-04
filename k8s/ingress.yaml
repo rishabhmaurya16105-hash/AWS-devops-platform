@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aws-devops-platform
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: aws-devops.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: aws-devops-platform
+                port:
+                  number: 80
